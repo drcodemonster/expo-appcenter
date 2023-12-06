@@ -4,9 +4,9 @@ import {
   withDangerousMod,
 } from "@expo/config-plugins";
 import { ExpoConfig } from "@expo/config-types";
-import fs from "fs/promises";
-import path from "path";
 
+const fs = require("fs/promises")
+const path = require("path")
 interface CopyFileProps {
   platform: ModPlatform;
   from: string;

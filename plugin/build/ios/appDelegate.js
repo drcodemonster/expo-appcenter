@@ -1,11 +1,8 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.withAppCenterAppDelegate = exports.modifyObjcAppDelegate = void 0;
 const config_plugins_1 = require("@expo/config-plugins");
-const promises_1 = __importDefault(require("fs/promises"));
+const fs = require("fs/promises");
 const methodInvocationBlock = `[AppCenterReactNative register];
   [AppCenterReactNativeAnalytics registerWithInitiallyEnabled:true];
   [AppCenterReactNativeCrashes registerWithAutomaticProcessing];`;
@@ -31,7 +28,7 @@ const withAppCenterAppDelegate = (config) => {
         "ios",
         async (config) => {
             const fileInfo = config_plugins_1.IOSConfig.Paths.getAppDelegate(config.modRequest.projectRoot);
-            let contents = await promises_1.default.readFile(fileInfo.path, "utf-8");
+            let contents = await fs.readFile(fileInfo.path, "utf-8");
             if (fileInfo.language === "objc" || fileInfo.language === "objcpp") {
                 contents = modifyObjcAppDelegate(contents);
             }
@@ -39,7 +36,7 @@ const withAppCenterAppDelegate = (config) => {
                 // TODO: Support Swift
                 throw new Error(`Cannot add AppCenter code to AppDelegate of language "${fileInfo.language}"`);
             }
-            await promises_1.default.writeFile(fileInfo.path, contents);
+            await fs.writeFile(fileInfo.path, contents);
             return config;
         },
     ]);

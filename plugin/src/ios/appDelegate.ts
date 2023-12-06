@@ -3,7 +3,8 @@ import {
   IOSConfig,
   withDangerousMod,
 } from "@expo/config-plugins";
-import fs from "fs/promises";
+
+const fs = require("fs/promises")
 
 const methodInvocationBlock = `[AppCenterReactNative register];
   [AppCenterReactNativeAnalytics registerWithInitiallyEnabled:true];

@@ -1,1 +1,1 @@
-export declare type AndroidProps = Record<string, never>;
+export type AndroidProps = Record<string, never>;
